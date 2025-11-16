@@ -1,0 +1,46 @@
+# ===========
+# Core ML
+# ===========
+timm
+transformers
+einops
+supervision
+
+# ===========
+# Image processing
+# ===========
+opencv-python
+Pillow
+numpy
+matplotlib
+pycocotools
+
+# ===========
+# API & Web
+# ===========
+fastapi
+uvicorn
+python-multipart
+pydantic
+
+# ===========
+# Desktop App (optional)
+# ===========
+pywebview
+
+# ===========
+# Tools
+# ===========
+tqdm
+scipy
+pyyaml
+
+# ===========
+# OpenAI SDK
+# ===========
+openai
+
+# ===========
+# MobileSAM (Git dependency)
+# ===========
+git+https://github.com/ChaoningZhang/MobileSAM.git
