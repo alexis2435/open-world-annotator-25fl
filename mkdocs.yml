@@ -1,0 +1,16 @@
+site_name: OpenWorld Annotator Docs
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          inventories: []
+          module_dir: .
+
+nav:
+  - Home: index.md
+  - Reference:
+      - All Code: reference/all_code.md
