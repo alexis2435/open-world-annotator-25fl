@@ -32,27 +32,24 @@ from backend.inference.visualize import visualize_results
 #     visualize_and_save_local
 # )
 
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # -----------------------------------------------------
 # 1.  SageMaker MODEL LOAD
 # -----------------------------------------------------
+from backend.inference.model_loader import load_all
+
+# -----------------------------------------------------
 def model_fn(model_dir):
     """
     SageMaker 在容器启动时调用，模型只会加载一次。
-
-    返回的 dict 会传给 predict_fn，用于整个生命周期的推理。
+    下载权重 + 初始化模型
     """
-    print("[SageMaker] model_fn: start loading models...")
+    print("[SageMaker] model_fn: start loading models from S3...")
 
-    # ---- Processor（在 CPU 上就行）----
-    processor = load_processor()
-
-    # ---- OWLv2（加载到 GPU 或 CPU）----
-    owl_model, device = load_owl_model()
-
-    # ---- MobileSAM（跟 OWLv2 公用 device）----
-    sam_model, _ = load_sam_model(device)
+    processor, owl_model, sam_model, device = load_all()
 
     print("[SageMaker] model_fn: all models loaded successfully.")
 
@@ -62,6 +59,7 @@ def model_fn(model_dir):
         "mobilesam": sam_model,     # GPU/CPU
         "device": device            # torch.device("cuda") or cpu
     }
+
 
 
 

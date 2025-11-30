@@ -5,14 +5,18 @@ import time
 # ------------ 基本配置 ------------
 REGION = "us-east-1"
 
-ROLE_ARN = "arn:aws:iam::221482347185:role/SageMakerExecutionRole"
-IMAGE_URI = "221482347185.dkr.ecr.us-east-1.amazonaws.com/open-world-annotator@sha256:503514df5c77122e8b9308b7f894c1ae0f57d527b53b55496ca6389c67d782eb"
+# ROLE_ARN = "arn:aws:iam::221482347185:role/SageMakerExecutionRole"
+ROLE_ARN = "arn:aws:iam::252602636619:role/SageMakerExecutionRole"
+
+# IMAGE_URI = "221482347185.dkr.ecr.us-east-1.amazonaws.com/open-world-annotator:latest"
+IMAGE_URI = "252602636619.dkr.ecr.us-east-1.amazonaws.com/open-world-annotator:latest"
 
 MODEL_NAME = "open-world-annotator-model"
 ENDPOINT_CONFIG = "open-world-annotator-config"
 ENDPOINT_NAME = "open-world-annotator-endpoint"
 
-INSTANCE_TYPE = "ml.g4dn.xlarge"
+INSTANCE_TYPE = "ml.m5.large"
+
 
 sm = boto3.client("sagemaker", region_name=REGION)
 
@@ -22,12 +26,18 @@ def _handle_client_error(e, resource_desc: str, allow_exists: bool = False):
     err = e.response.get("Error", {})
     code = err.get("Code", "")
     msg = err.get("Message", "")
-    print(f"[ERROR] {resource_desc} failed: {code} - {msg}")
 
-    if allow_exists and ("already exists" in msg or code in ("ResourceInUse",)):
+    # SageMaker 常见 case：ValidationException + already existing
+    if allow_exists and (
+        "already exists" in msg.lower()
+        or "already existing" in msg.lower()
+    ):
         print(f"[INFO] {resource_desc} already exists, skip")
         return
+
+    print(f"[ERROR] {resource_desc} failed: {code} - {msg}")
     raise e
+
 
 
 # ------------ Step 1: 创建 Model ------------
@@ -76,16 +86,19 @@ print("=== Step 3: Creating or Updating Endpoint ===")
 need_create = True
 try:
     resp = sm.describe_endpoint(EndpointName=ENDPOINT_NAME)
-    status = resp["EndpointStatus"]
+    status = resp.get("EndpointStatus", "Unknown")
     print(f"[INFO] Endpoint {ENDPOINT_NAME} already exists, status = {status}")
     need_create = False
+
 except botocore.exceptions.ClientError as e:
-    err = e.response.get("Error", {}).get("Code", "")
-    if err == "ResourceNotFound":
+    msg = e.response.get("Error", {}).get("Message", "")
+    # SageMaker 在这里返回 ValidationException 而不是 ResourceNotFound
+    if "Could not find endpoint" in msg:
         print(f"[INFO] Endpoint {ENDPOINT_NAME} not found, will create new one")
         need_create = True
     else:
         raise e
+
 
 if need_create:
     try:

@@ -9,6 +9,9 @@ import boto3
 
 from backend.inference.inference import model_fn, input_fn, predict_fn, output_fn
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # 设置 bucket
 bucekt = os.environ["S3_OUTPUT_BUCKET"]

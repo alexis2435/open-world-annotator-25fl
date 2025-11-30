@@ -1,49 +1,35 @@
-# ===========
-# Core ML
-# ===========
-timm
-transformers
+# =========== Core ML ===========
 einops
 supervision
 
-# ===========
-# Image processing
-# ===========
+# =========== Image processing ===========
 opencv-python
 Pillow
-numpy
 matplotlib
 pycocotools
 
-# ===========
-# API & Web
-# ===========
+# =========== API & Web ===========
 fastapi
 uvicorn
 python-multipart
 pydantic
 
-# ===========
-# Desktop App (optional)
-# ===========
+# =========== Desktop App (optional) ===========
 pywebview
 
-# ===========
-# Tools
-# ===========
+# =========== Tools ===========
 tqdm
 scipy
 pyyaml
 
-# ===========
-# OpenAI SDK
-# ===========
+# =========== OpenAI SDK ===========
 openai
 
-# ===========
-# MobileSAM (Git dependency)
-# ===========
+# =========== MobileSAM ===========
 git+https://github.com/ChaoningZhang/MobileSAM.git
 
 sagemaker-inference
 
+python-dotenv
+boto3
+requests

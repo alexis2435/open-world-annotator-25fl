@@ -17,7 +17,7 @@
 showcase_image/
 runing-logs/
 backend/training/datasets
-backend/models
+
 .idea
 __pycache__
 
