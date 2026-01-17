@@ -89,4 +89,4 @@ This project was developed as a group assignment for **Fall_2025.CSE.4207.01 - C
 * Zilong Wang
 * Alexis Liao
 
-*Please note: This repository is a copy of the original group work hosted at [[Link to Teammate's Repo](https://github.com/Gin-Xia/open_world_annotator/tree/main)].*
+*Please note: This repository is a copy of the original group work hosted at [here(https://github.com/Gin-Xia/open_world_annotator/tree/main)].*
