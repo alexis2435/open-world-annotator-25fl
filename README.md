@@ -79,12 +79,14 @@ open_world_annotator/
 ```
 
 
-## License
+## 🎓 Acknowledgements
 
-MIT License
+This project was developed as a group assignment for **Fall_2025.CSE.4207.01 - Cloud Computing With Big Data Applications** at **Washington University in St. Louis**.
 
----
+**Team Members:**
+* Haohao Xia
+* Xuyang Zheng
+* Zilong Wang
+* Alexis Liao
 
-## Contact
-
-Questions or suggestions? Open an issue please.
+*Please note: This repository is a copy of the original group work hosted at [[Link to Teammate's Repo](https://github.com/Gin-Xia/open_world_annotator/tree/main)].*
